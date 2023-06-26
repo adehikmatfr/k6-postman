@@ -1,0 +1,155 @@
+{
+	"info": {
+		"_postman_id": "583172fd-3b55-4f96-ab16-8b6df8abe326",
+		"name": "STRESS TEST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13827765"
+	},
+	"item": [
+		{
+			"name": "WebhookOrderShopee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"shop_id\": \"1\",\r\n    \"data\": {\r\n        \"ordersn\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{integration_sc_base_url}}webhook/shopee/order",
+					"host": [
+						"{{integration_sc_base_url}}webhook"
+					],
+					"path": [
+						"shopee",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WebhookOrderTokopedia",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"shop_id\":\"1\",\r\n    \"order_id\":\"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{integration_sc_base_url}}webhook/tokopedia/order",
+					"host": [
+						"{{integration_sc_base_url}}webhook"
+					],
+					"path": [
+						"tokopedia",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WebhookOrderTiktok",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\":0,\r\n    \"shop_id\":\"7494913005296060948\",\r\n    \"data\":{\r\n        \"order_id\":\"1716514151_test\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{integration_sc_base_url}}webhook/tiktok/order",
+					"host": [
+						"{{integration_sc_base_url}}webhook"
+					],
+					"path": [
+						"tiktok",
+						"order"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"function makeid(length) {",
+					"    let result = '';",
+					"    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';",
+					"    const charactersLength = characters.length;",
+					"    let counter = 0;",
+					"    while (counter < length) {",
+					"        result += characters.charAt(Math.floor(Math.random() * charactersLength));",
+					"        counter += 1;",
+					"    }",
+					"    return result;",
+					"}",
+					"",
+					"let pt = pm.request.url.getPath().split(\"/\")",
+					"var id = \"\"",
+					"",
+					"switch (pt[1]) {",
+					"    case \"shopee\":",
+					"        id += \"SH\" + makeid(5)",
+					"        break;",
+					"    case \"tiktok\":",
+					"        id += \"TI\" + makeid(5)",
+					"        break;",
+					"    case \"tokopedia\":",
+					"        id += \"TO\" + makeid(5)",
+					"        break;",
+					"    default:",
+					"        id += makeid(5)",
+					"}",
+					"",
+					"id += \"_test\"",
+					"",
+					"let body = JSON.parse(request.data)",
+					"body.data.order_id = id",
+					"pm.request.body.raw = body"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
