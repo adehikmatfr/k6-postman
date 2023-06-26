@@ -1,3 +1,5 @@
+Exaple Option
+```
 export let options = {
   ext: {
     loadimpact: {
@@ -25,8 +27,14 @@ export let options = {
     },
   },
 };
+```
 
-// run K6
-// k6 run -o cloud k6-script.js
-// generate k6 
-// node ./bin/postman-to-k6.js test-api.json -e env.json -o k6-script.js
+run K6 with cloud
+```
+k6 run -o cloud k6-script.js
+```
+
+generate k6 with postman collection
+```
+node ./script/bin/postman-to-k6.js test-api.json -e env.json -o k6-script.js
+```
